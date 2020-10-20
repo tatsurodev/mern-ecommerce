@@ -1,7 +1,7 @@
-// backendはexpressなので、CommonJs syntaxを使用
-const dotenv = require('dotenv')
-const express = require('express')
-const products = require('./data/products')
+import dotenv from 'dotenv'
+import express from 'express'
+// es6 moduleでのfile importは拡張子必須
+import products from './data/products.js'
 
 // 環境変数の設定
 dotenv.config()

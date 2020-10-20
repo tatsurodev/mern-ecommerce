@@ -79,5 +79,4 @@ const products = [
   },
 ]
 
-// CommonJs syntax
-module.exports = products
+export default products
