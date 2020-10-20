@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import express from 'express'
 import connectDB from './config/db.js'
+import colors from 'colors'
 // es6 moduleでのfile importは拡張子必須
 import products from './data/products.js'
 
@@ -26,5 +27,5 @@ app.get('/api/products/:id', (req, res) => {
 
 app.listen(
   PORT,
-  console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`)
+  console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`.yellow.bold)
 )
