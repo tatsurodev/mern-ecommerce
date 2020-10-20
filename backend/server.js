@@ -1,11 +1,13 @@
 import dotenv from 'dotenv'
 import express from 'express'
+import connectDB from './config/db.js'
 // es6 moduleでのfile importは拡張子必須
 import products from './data/products.js'
 
 // 環境変数の設定
 dotenv.config()
 const { NODE_ENV, PORT = 5000 } = process.env
+connectDB()
 const app = express()
 
 // routing
