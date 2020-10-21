@@ -3,7 +3,7 @@ import express from 'express'
 import connectDB from './config/db.js'
 import colors from 'colors'
 // es6 moduleでのfile importは拡張子必須
-import products from './data/products.js'
+import productRoutes from './routes/productRoutes.js'
 
 // 環境変数の設定
 dotenv.config()
@@ -15,15 +15,8 @@ const app = express()
 app.get('/', (req, res) => {
   res.send('API is running...')
 })
-app.get('/api/products', (req, res) => {
-  // json形式でresを返す
-  res.json(products)
-})
-app.get('/api/products/:id', (req, res) => {
-  // dynamic paramsには, req.params.paramNameでaccess
-  const product = products.find(p => p._id === req.params.id)
-  res.json(product)
-})
+
+app.use('/api/products', productRoutes)
 
 app.listen(
   PORT,
