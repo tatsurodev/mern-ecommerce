@@ -4,6 +4,7 @@ import connectDB from './config/db.js'
 import colors from 'colors'
 // es6 moduleでのfile importは拡張子必須
 import productRoutes from './routes/productRoutes.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 // 環境変数の設定
 dotenv.config()
@@ -15,8 +16,11 @@ const app = express()
 app.get('/', (req, res) => {
   res.send('API is running...')
 })
-
 app.use('/api/products', productRoutes)
+// 404 not found
+app.use(notFound)
+// error handlerでerror時の処理を記述、全routingの後に設定
+app.use(errorHandler)
 
 app.listen(
   PORT,
