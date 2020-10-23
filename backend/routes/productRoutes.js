@@ -9,6 +9,7 @@ const router = express.Router()
 // @access  Public
 router.get('/', asyncHandler(async (req, res) => {
   const products = await Product.find({})
+  // throw new Error('Error!!!')
   // json形式でresを返す
   res.json(products)
 }))
