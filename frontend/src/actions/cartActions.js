@@ -15,5 +15,6 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       qty,
     }
   })
+  // 現在のcartItemsをreduxから取得してlocalStorageに保存
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
