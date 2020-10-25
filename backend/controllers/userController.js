@@ -72,4 +72,28 @@ const getUserProfile = asyncHandler(async (req, res) => {
   res.json({ _id, name, email, isAdmin })
 })
 
-export { authUser, registerUser, getUserProfile }
+// @desc    Update user profile
+// @route   PUT /api/users/profile
+// @access  Private
+const updateUserProfile = asyncHandler(async (req, res) => {
+  // login済なら、authMiddlewareでreq.userにuserがsetされている。されていなければ未login
+  const user = req.user
+  if (user) {
+    // req.bodyに更新されるname, emailがあればset, なければ更新される前の値をset
+    user.name = req.body.name || user.name
+    user.email = req.body.email || user.email
+    // req.bodyにpasswordがあるときだけ新しいpasswordをset, なければpassword自体をsetしない(元のpasswordをsetすると新たなsaltで新たなhashが作成されてしまうため)
+    if (req.body.password) {
+      user.password = req.body.password || user.password
+    }
+    const updatedUser = await user.save()
+    const { _id, name, email, isAdmin } = updatedUser
+    const token = generateToken(_id)
+    res.json({ _id, name, email, isAdmin, token })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
+export { authUser, registerUser, getUserProfile, updateUserProfile }
