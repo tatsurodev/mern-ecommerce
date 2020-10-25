@@ -22,4 +22,30 @@ const authUser = asyncHandler(async (req, res) => {
   }
 })
 
-export { authUser }
+// @desc    Get user profile
+// @route   GET /api/users/profile
+// @access  Private
+const getUserProfile = asyncHandler(async (req, res) => {
+  /* brad's way, middlewareでuser modelからuserを既に取得しているので更にcontrollerで取得するのは冗長
+  const user = await User.findById(req.user._id)
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+  */
+  if (!req.user) {
+    res.status(404)
+    throw new Error('User not found')
+  }
+  const { _id, name, email, isAdmin } = req.user
+  res.json({ _id, name, email, isAdmin })
+})
+
+export { authUser, getUserProfile }
