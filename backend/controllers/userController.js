@@ -22,6 +22,30 @@ const authUser = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Register a new user
+// @route   Post /api/users
+// @access  Public
+const registerUser = asyncHandler(async (req, res) => {
+  const { name, email, password } = req.body
+  const userExists = await User.findOne({ email })
+  // register前に重複check
+  if (userExists) {
+    res.status(400)
+    throw new Error('User alread exists')
+  }
+  // user作成, _id, tokenは自動、isAdminはdefault値が使用される
+  const user = await User.create({ name, email, password })
+  // return response
+  if (user) {
+    const { _id, name, email, isAdmin } = user
+    const token = generateToken(_id)
+    res.status(201).json({ _id, name, email, isAdmin, token })
+  } else {
+    res.status(400)
+    throw new Error('Invalid user data')
+  }
+})
+
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
@@ -48,4 +72,4 @@ const getUserProfile = asyncHandler(async (req, res) => {
   res.json({ _id, name, email, isAdmin })
 })
 
-export { authUser, getUserProfile }
+export { authUser, registerUser, getUserProfile }

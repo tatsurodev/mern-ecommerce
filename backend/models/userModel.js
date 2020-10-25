@@ -30,6 +30,19 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
 }
 
+userSchema.pre('save', async function (next) {
+  // isModifiedはmongooseのfieldが更新されたかどうかをcheckする関数
+  // passwordの更新がない時、next
+  if (!this.isModified('password')) {
+    next()
+  }
+  // passwordの更新がある時にpasswordをhash化
+  // passwordをただ暗号化するだけでなく、passwordにrandomなsaltを付けて強化し暗号化する。作成されるsaltは毎回違うので　hash化されるpasswordも違う
+  const salt = await bcrypt.genSalt(10)
+  // password更新
+  this.password = await bcrypt.hash(this.password, salt)
+})
+
 const User = mongoose.model('User', userSchema)
 
 export default User
