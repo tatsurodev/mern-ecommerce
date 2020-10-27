@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 const ProfileScreen = ({ location, history }) => {
   // component level state
@@ -30,7 +31,8 @@ const ProfileScreen = ({ location, history }) => {
     } else {
       // login済だが、userDetails stateがまだない
       // !user.nameの代わりに、Object.keys(user).length === 0 && user.constructor === Objectでuserが{}かどうかで判定してもおｋ
-      if (!user.name) {
+      if (!user.name || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET })
         // /api/users/profileへのgetでauthMiddlewareでreq.userにaccessしているuserがsetされる
         dispatch(getUserDetails('profile'))
       } else {
@@ -39,7 +41,7 @@ const ProfileScreen = ({ location, history }) => {
         setEmail(user.email)
       }
     }
-  }, [dispatch, history, userInfo, user])
+  }, [dispatch, history, userInfo, user, success])
 
   const submitHandler = (e) => {
     e.preventDefault()

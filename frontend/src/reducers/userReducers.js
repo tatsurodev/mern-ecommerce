@@ -98,6 +98,9 @@ export const userUpdateProfileReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       }
+    // loading, success, error, userInfo等のstateを初期化することでMessage componentを消す
+    case USER_UPDATE_PROFILE_RESET:
+      return {}
     default:
       return state
   }
