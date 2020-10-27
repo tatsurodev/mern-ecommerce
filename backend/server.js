@@ -5,6 +5,7 @@ import colors from 'colors'
 // es6 moduleでのfile importは拡張子必須
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 // 環境変数の設定
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 })
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 // 404 not found
 app.use(notFound)
 // error handlerでerror時の処理を記述、全routingの後に設定
