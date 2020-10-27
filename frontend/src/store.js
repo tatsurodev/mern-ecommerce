@@ -3,9 +3,17 @@ import thunk from 'redux-thunk'
 // redux devtools extensionに必要
 import { composeWithDevTools } from 'redux-devtools-extension'
 // reducers
-import { productListReducer, productDetailsReducer } from './reducers/productReducers'
+import {
+  productListReducer,
+  productDetailsReducer,
+} from './reducers/productReducers'
 import { cartReducer } from './reducers/cartReducers'
-import { userLoginReducer, userRegisterReducer, userDetailsReducer } from './reducers/userReducers'
+import {
+  userLoginReducer,
+  userRegisterReducer,
+  userDetailsReducer,
+  userUpdateProfileReducer,
+} from './reducers/userReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -14,11 +22,16 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 })
 
-const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
+const cartItemsFromStorage = localStorage.getItem('cartItems')
+  ? JSON.parse(localStorage.getItem('cartItems'))
+  : []
 
-const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null
+const userInfoFromStorage = localStorage.getItem('userInfo')
+  ? JSON.parse(localStorage.getItem('userInfo'))
+  : null
 
 const initialState = {
   cart: {
@@ -26,13 +39,17 @@ const initialState = {
   },
   userLogin: {
     userInfo: userInfoFromStorage,
-  }
+  },
 }
 
-const middleware = [thunk,]
+const middleware = [thunk]
 
 // createStore(reducer, initialState, enhancer)
-const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(...middleware)))
+const store = createStore(
+  reducer,
+  initialState,
+  composeWithDevTools(applyMiddleware(...middleware))
+)
 
 export default store
 
