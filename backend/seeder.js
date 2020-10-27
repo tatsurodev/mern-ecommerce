@@ -25,7 +25,7 @@ const importData = async () => {
     // admin userの_id格納
     const adminUser = createdUsers[0]._id
     // productsをadmin userと紐付け
-    const sampleProducts = products.map(product => {
+    const sampleProducts = products.map((product) => {
       return {
         ...product,
         user: adminUser,

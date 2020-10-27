@@ -5,7 +5,10 @@ import User from '../models/userModel.js'
 const protect = asyncHandler(async (req, res, next) => {
   let token
   // headersのauthorization keyにBearer tokenがsetされていたら
-  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
     try {
       token = req.headers.authorization.split(' ')[1]
       // ex. { id: '5f8eeb0f3dfd733a43255068', iat: 1603535852, exp: 1606127852 }

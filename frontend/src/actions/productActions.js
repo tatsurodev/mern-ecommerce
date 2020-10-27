@@ -24,11 +24,11 @@ export const listProducts = () => async (dispatch) => {
     dispatch({
       type: PRODUCT_LIST_FAIL,
       payload:
-        error.response && error.response.data.message ?
-          // { message: 'this is error }みたいな感じのerror
-          error.response.data.message :
-          // throw new Error('this is error')で投げられたerror
-          error.message,
+        error.response && error.response.data.message
+          ? // { message: 'this is error }みたいな感じのerror
+            error.response.data.message
+          : // throw new Error('this is error')で投げられたerror
+            error.message,
     })
   }
 }
@@ -44,9 +44,10 @@ export const listProductDetails = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,
-      payload: error.response && error.response.data.message ?
-        error.response.data.message :
-        error.message,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     })
   }
 }

@@ -12,7 +12,7 @@ const HomeScreen = () => {
   // actionをdispatchするため
   const dispatch = useDispatch()
   // useSelectorでstoreからstateを取得
-  const productList = useSelector(state => state.productList)
+  const productList = useSelector((state) => state.productList)
   // productList reducerでsetされるstateを分割代入で取得
   const { loading, error, products } = productList
   // stateless functional componentはstateを持つことができないが、hooksを使うことでreact側にstateを保持させることで、擬似的にstateを導入できる
@@ -28,27 +28,19 @@ const HomeScreen = () => {
   return (
     <>
       <h1>Latest Products</h1>
-      {
-        loading ? (
-          <Loader />
-        ) :
-          error ? (
-            <Message variant="danger">
-              {error}
-            </Message>
-          ) : (
-              <Row>
-                {products.map(product => (
-                  <Col
-                    key={product._id}
-                    sm={12} md={6} lg={4} xl={3}
-                  >
-                    <Product product={product} />
-                  </Col>
-                ))}
-              </Row>
-            )
-      }
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <Row>
+          {products.map((product) => (
+            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+      )}
     </>
   )
 }

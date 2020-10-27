@@ -13,7 +13,7 @@ const LoginScreen = ({ location, history }) => {
   const [password, setPassword] = useState('')
   // reduxからstate取得
   const dispatch = useDispatch()
-  const userLogin = useSelector(state => state.userLogin)
+  const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
   // authenticationが必要なpageへのlinkでlogin後に元のpageにredirectするのに使用する
@@ -26,7 +26,7 @@ const LoginScreen = ({ location, history }) => {
     }
   }, [history, userInfo, redirect])
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault()
     dispatch(login(email, password))
   }
@@ -43,9 +43,8 @@ const LoginScreen = ({ location, history }) => {
             type="email"
             placeholder="Enter email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
-          >
-          </Form.Control>
+            onChange={(e) => setEmail(e.target.value)}
+          ></Form.Control>
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
@@ -53,26 +52,17 @@ const LoginScreen = ({ location, history }) => {
             type="password"
             placeholder="Enter password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
-          >
-          </Form.Control>
+            onChange={(e) => setPassword(e.target.value)}
+          ></Form.Control>
         </Form.Group>
-        <Button
-          type="submit"
-          variant="primary"
-        >
+        <Button type="submit" variant="primary">
           Sign in
         </Button>
       </Form>
       <Row className="py-3">
         <Col>
-          New Customer ? <Link
-            to={
-              redirect ?
-                `register?redirect=${redirect}` :
-                '/register'
-            }
-          >
+          New Customer ?{' '}
+          <Link to={redirect ? `register?redirect=${redirect}` : '/register'}>
             Register
           </Link>
         </Col>

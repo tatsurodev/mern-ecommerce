@@ -16,7 +16,7 @@ const RegisterScreen = ({ location, history }) => {
   const [message, setMessage] = useState('')
   // reduxからstate取得
   const dispatch = useDispatch()
-  const userRegister = useSelector(state => state.userRegister)
+  const userRegister = useSelector((state) => state.userRegister)
   const { loading, error, userInfo } = userRegister
 
   const redirect = location.search ? location.search.split('=')[1] : '/'
@@ -26,7 +26,7 @@ const RegisterScreen = ({ location, history }) => {
     }
   }, [history, userInfo, redirect])
 
-  const submitHandler = e => {
+  const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
@@ -49,9 +49,8 @@ const RegisterScreen = ({ location, history }) => {
             type="name"
             placeholder="Enter name"
             value={name}
-            onChange={e => setName(e.target.value)}
-          >
-          </Form.Control>
+            onChange={(e) => setName(e.target.value)}
+          ></Form.Control>
         </Form.Group>
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
@@ -59,9 +58,8 @@ const RegisterScreen = ({ location, history }) => {
             type="email"
             placeholder="Enter email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
-          >
-          </Form.Control>
+            onChange={(e) => setEmail(e.target.value)}
+          ></Form.Control>
         </Form.Group>
         <Form.Group controlId="password">
           <Form.Label>Password</Form.Label>
@@ -69,9 +67,8 @@ const RegisterScreen = ({ location, history }) => {
             type="password"
             placeholder="Enter password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
-          >
-          </Form.Control>
+            onChange={(e) => setPassword(e.target.value)}
+          ></Form.Control>
         </Form.Group>
         <Form.Group controlId="confirmPassword">
           <Form.Label>Confirm password</Form.Label>
@@ -79,26 +76,17 @@ const RegisterScreen = ({ location, history }) => {
             type="password"
             placeholder="Enter confirmPassword"
             value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
-          >
-          </Form.Control>
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          ></Form.Control>
         </Form.Group>
-        <Button
-          type="submit"
-          variant="primary"
-        >
+        <Button type="submit" variant="primary">
           Register
         </Button>
       </Form>
       <Row className="py-3">
         <Col>
-          Have an Acount ? <Link
-            to={
-              redirect ?
-                `login?redirect=${redirect}` :
-                '/login'
-            }
-          >
+          Have an Acount ?{' '}
+          <Link to={redirect ? `login?redirect=${redirect}` : '/login'}>
             Login
           </Link>
         </Col>
