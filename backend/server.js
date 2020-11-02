@@ -23,6 +23,9 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+)
 // 404 not found
 app.use(notFound)
 // error handlerでerror時の処理を記述、全routingの後に設定
